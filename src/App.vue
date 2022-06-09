@@ -1,11 +1,21 @@
 <template>
   <div class="app__container">
-    <chess-board />
+    <chess-board :board="board" />
   </div>
 </template>
 
 <script setup lang="ts">
 import ChessBoard from '@/components/ChessBoard.vue'
+import { ref } from 'vue'
+import { Board } from '@/models/Board'
+const board = ref<Board>(new Board())
+const restart = () => {
+  const newBoard = new Board()
+  newBoard.initCells()
+  board.value = newBoard
+}
+
+restart()
 </script>
 
 <style lang="scss">
