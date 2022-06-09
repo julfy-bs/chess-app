@@ -24,10 +24,12 @@ $board-border-width: 1px;
 
 //// cell
 // cell color
-$cell-black: $main-color;
-$cell-white: $secondary-color;
+$cell-black: var(--c-cell-black-2);
+$cell-white: var(--c-cell-white-2);
+$cell-selected-black: var(--c-cell-selected-black);
+$cell-selected-white: var(--c-cell-selected-white);
 // cell size
-$cell-size: 64px;
+$cell-size: 77px;
 
 /* z-index */
 $z-index-local-nav: 10;

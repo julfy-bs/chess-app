@@ -12,6 +12,7 @@ const board = ref<Board>(new Board())
 const restart = () => {
   const newBoard = new Board()
   newBoard.initCells()
+  newBoard.addFigures()
   board.value = newBoard
 }
 
@@ -38,6 +39,10 @@ restart()
   // cell
   --c-cell-black: #ba8f5e;
   --c-cell-white: #dcccad;
+  --c-cell-black-2: #769656;
+  --c-cell-white-2: #eeeed2;
+  --c-cell-selected-black: #bbca41;
+  --c-cell-selected-white: #f6f686;
   //// decorators
   // btn
   --btn-br: 6px;
@@ -136,8 +141,7 @@ img, video {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  padding: 3rem;
   min-width: $screen-min-width;
   max-width: $screen-max-width;
   background-color: $bg;
