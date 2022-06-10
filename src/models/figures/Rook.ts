@@ -5,6 +5,7 @@ import { Cell } from '@/models/Cell'
 import blackLogo from '@/assets/figures/rook-black.png'
 // @ts-ignore
 import whiteLogo from '@/assets/figures/rook-white.png'
+import { Board } from '@/models/Board'
 
 export class Rook extends Figure {
   constructor(color: Colors, cell: Cell) {
@@ -14,8 +15,8 @@ export class Rook extends Figure {
     this.name = FigureNames.ROOK
   }
 
-  canMove(target: Cell): boolean {
-    if (!super.canMove(target)) {
+  canMove(board: Board, cell: Cell, target: Cell): boolean {
+    if (!super.canMove(board, cell, target)) {
       return false
     }
     return true

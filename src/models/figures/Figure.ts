@@ -2,6 +2,7 @@
 import logo from '@/assets/figures/pawn-black.png'
 import { Colors } from '@/models/Colors'
 import { Cell } from '@/models/Cell'
+import { Board } from '@/models/Board'
 
 export enum FigureNames {
   FIGURE = 'Фигура',
@@ -25,13 +26,13 @@ export class Figure {
     this.name = FigureNames.FIGURE
   }
 
-  canMove(target: Cell): boolean {
+  canMove(board: Board, cell: Cell, target: Cell): boolean {
     const couldKillKing = target.figure?.name === FigureNames.KING
     const couldKillAllies = target.figure?.color === this.color
     return !(couldKillKing || couldKillAllies)
   }
 
   moveFigure(target: Cell) {
-    
+
   }
 }

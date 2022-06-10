@@ -5,6 +5,7 @@ import { Cell } from '@/models/Cell'
 import blackLogo from '@/assets/figures/queen-black.png'
 // @ts-ignore
 import whiteLogo from '@/assets/figures/queen-white.png'
+import { Board } from '@/models/Board'
 
 export class Queen extends Figure {
   constructor(color: Colors, cell: Cell) {
@@ -14,10 +15,12 @@ export class Queen extends Figure {
     this.name = FigureNames.QUEEN
   }
 
-  canMove(target: Cell): boolean {
-    if (!super.canMove(target)) {
+  canMove(board: Board, cell: Cell, target: Cell): boolean {
+    if (!super.canMove(board, cell, target)) {
       return false
     }
-    return true
+    return cell.isCellEmptyVertical(board, target)
+      || cell.isCellEmptyHorizontal(board, target)
+      || cell.isCellEmptyDiagonal(board, target)
   }
 }

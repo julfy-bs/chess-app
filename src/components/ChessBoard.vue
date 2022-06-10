@@ -20,8 +20,9 @@ const props = defineProps<BoardProps>()
 const selectedCell = ref<Cell | null>(null)
 
 const selectCell = (cell: Cell) => {
-  if (selectedCell.value && selectedCell.value !== cell && selectedCell.value.figure?.canMove(cell)) {
-    selectedCell.value.moveFigure(cell)
+  if (selectedCell.value && selectedCell.value !== cell
+      && selectedCell.value.figure?.canMove(props.board, selectedCell.value, cell)) {
+    selectedCell.value.moveFigure(props.board, cell)
     selectedCell.value = null
   } else {
     selectedCell.value = cell
