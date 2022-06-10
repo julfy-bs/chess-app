@@ -5,8 +5,12 @@ import { Cell } from '@/models/Cell'
 import blackLogo from '@/assets/figures/rook-black.png'
 // @ts-ignore
 import whiteLogo from '@/assets/figures/rook-white.png'
+import { Board } from '@/models/Board'
 
 export class Rook extends Figure {
+
+  isFirstStep: boolean = true
+
   constructor(color: Colors, cell: Cell) {
     super(color)
     cell.addFigure(this)
@@ -14,10 +18,16 @@ export class Rook extends Figure {
     this.name = FigureNames.ROOK
   }
 
-  canMove(target: Cell): boolean {
-    if (!super.canMove(target)) {
+  canMove(board: Board, cell: Cell, target: Cell): boolean {
+    if (!super.canMove(board, cell, target)) {
       return false
     }
-    return true
+    return cell.isCellEmptyVertical(board, target)
+      || cell.isCellEmptyHorizontal(board, target)
+  }
+
+  moveFigure(target: Cell) {
+    super.moveFigure(target)
+    this.isFirstStep = false
   }
 }

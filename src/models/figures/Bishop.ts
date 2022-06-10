@@ -2,9 +2,10 @@ import { Figure, FigureNames } from '@/models/figures/Figure'
 import { Colors } from '@/models/Colors'
 import { Cell } from '@/models/Cell'
 // @ts-ignore
-import blackLogo from '@/static/figures/bishop-black.png'
+import blackLogo from '@/assets/figures/bishop-black.png'
 // @ts-ignore
 import whiteLogo from '@/assets/figures/bishop-white.png'
+import { Board } from '@/models/Board'
 
 export class Bishop extends Figure {
 
@@ -15,10 +16,10 @@ export class Bishop extends Figure {
     this.name = FigureNames.BISHOP
   }
 
-  canMove(target: Cell): boolean {
-    if (!super.canMove(target)) {
+  canMove(board: Board, cell: Cell, target: Cell): boolean {
+    if (!super.canMove(board, cell, target)) {
       return false
     }
-    return true
+    return cell.isCellEmptyDiagonal(board, target)
   }
 }

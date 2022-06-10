@@ -1,7 +1,7 @@
 <template>
   <div
     class="cell"
-    :class="[`cell--${color}`, selected ? 'cell--selected' : '']"
+    :class="[`cell--${cell.color}`, selected ? 'cell--selected' : '']"
     @click="selectCell(cell)"
   >
     <img
@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
- import { Colors } from '@/models/Colors'
  import { Figure } from '@/models/figures/Figure'
  import { Cell } from '@/models/Cell'
 
@@ -30,14 +29,10 @@
    selected: boolean;
    selectCell: (cell: Cell) => void;
    cell: Cell;
-   readonly x: number;
-   readonly y: number;
-   readonly color: Colors;
    figure: Figure | null;
    available: boolean;
  }
  const props = defineProps<CellProps>()
- console.log(props.selected)
 </script>
 
 <style lang="scss" scoped>

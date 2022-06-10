@@ -11,9 +11,9 @@ export class Board {
   cells: Cell[][] = []
 
   public initCells() {
-    for (let y = 1; y <= 8; y++) {
+    for (let x = 1; x <= 8; x++) {
       const row: Cell[] = []
-      for (let x = 1; x <= 8; x++) {
+      for (let y = 1; y <= 8; y++) {
         const colorCondition = (y + x) % 2 !== 1
         colorCondition
           ? row.push(new Cell(x, y, Colors.BLACK, null))
@@ -81,7 +81,7 @@ export class Board {
       const row = this.cells[i]
       for (let j = 0; j < row.length; j++) {
         const target = row[j]
-        target.available = !!selectedCell?.figure?.canMove(target)
+        target.available = !!selectedCell?.figure?.canMove(this, selectedCell,target)
       }
     }
   }

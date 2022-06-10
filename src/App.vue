@@ -8,6 +8,7 @@
 import ChessBoard from '@/components/ChessBoard.vue'
 import { ref } from 'vue'
 import { Board } from '@/models/Board'
+
 const board = ref<Board>(new Board())
 const restart = () => {
   const newBoard = new Board()
