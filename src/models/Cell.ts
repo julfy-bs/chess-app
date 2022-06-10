@@ -1,5 +1,5 @@
 import { Colors } from '@/models/Colors'
-import { Figure } from '@/models/figures/Figure'
+import { Figure, FigureNames } from '@/models/figures/Figure'
 import { Board } from '@/models/Board'
 
 export class Cell {
@@ -19,6 +19,24 @@ export class Cell {
 
   isCellEmpty() {
     return this.figure === null
+  }
+
+  isCellContainEnemyFigure(target: Cell): boolean {
+    if(target.figure) return this.figure?.color !== target.figure.color
+    return false
+  }
+
+  isSiblingCellContainEnemyPawn(board: Board, target: Cell): boolean {
+    if (target.y === 6 || target.y === 3) {
+      const siblingCell = board.getCell(this.y, target.x)
+      const siblingCellsContainEnemyPawn: boolean =
+        (siblingCell.figure?.name === FigureNames.PAWN
+          && siblingCell.figure
+          && siblingCell.figure.color !== this.figure?.color)
+      return !!siblingCell && siblingCellsContainEnemyPawn
+    } else {
+      return false
+    }
   }
 
   isCellEmptyVertical(board: Board, target: Cell): boolean {
@@ -74,6 +92,10 @@ export class Cell {
   moveFigure(board: Board, target: Cell): void {
     if (this.figure && this.figure?.canMove(board, this, target)) {
       this.figure.moveFigure(target)
+      if (this.isSiblingCellContainEnemyPawn(board, target)) {
+        const siblingCell = board.getCell(this.y, target.x)
+        siblingCell.removeFigure()
+      }
       target.figure = this.figure
       this.figure = null
     }
