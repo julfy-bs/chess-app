@@ -33,6 +33,5 @@ export class Figure {
   }
 
   moveFigure(target: Cell) {
-    console.log(target, 'moved')
   }
 }

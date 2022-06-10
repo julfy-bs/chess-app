@@ -1,6 +1,7 @@
 import { Colors } from '@/models/Colors'
 import { Figure, FigureNames } from '@/models/figures/Figure'
 import { Board } from '@/models/Board'
+import { Rook } from '@/models/figures/Rook'
 
 export class Cell {
   readonly x: number;
@@ -22,7 +23,7 @@ export class Cell {
   }
 
   isCellContainEnemyFigure(target: Cell): boolean {
-    if(target.figure) return this.figure?.color !== target.figure.color
+    if (target.figure) return this.figure?.color !== target.figure.color
     return false
   }
 
@@ -36,6 +37,39 @@ export class Cell {
       return !!siblingCell && siblingCellsContainEnemyPawn
     } else {
       return false
+    }
+  }
+
+  isRookAllowsCastling(board: Board, target: Cell): boolean {
+    if (target.x > this.x) {
+      const castlingRook = board.getCell(this.y, 8)
+      if (castlingRook.figure instanceof Rook
+        && castlingRook.figure.isFirstStep
+        && castlingRook.figure?.name === FigureNames.ROOK) return true
+    } else {
+      const castlingRook = board.getCell(this.y, 1)
+      if (castlingRook.figure instanceof Rook
+        && castlingRook.figure.isFirstStep
+        && castlingRook.figure?.name === FigureNames.ROOK) return true
+    }
+    return false
+  }
+
+  moveCastlingRook(board: Board, target: Cell) {
+    if (target.x > this.x) {
+      const castlingRook = board.getCell(this.y, 8)
+      const newRookPosition = board.getCell(this.y, target.x - 1)
+      if (castlingRook.figure) {
+        newRookPosition.addFigure(castlingRook.figure)
+        castlingRook.removeFigure()
+      }
+    } else {
+      const castlingRook = board.getCell(this.y, 1)
+      const newRookPosition = board.getCell(this.y, target.x + 1)
+      if (castlingRook.figure) {
+        newRookPosition.addFigure(castlingRook.figure)
+        castlingRook.removeFigure()
+      }
     }
   }
 
@@ -95,6 +129,10 @@ export class Cell {
       if (this.isSiblingCellContainEnemyPawn(board, target)) {
         const siblingCell = board.getCell(this.y, target.x)
         siblingCell.removeFigure()
+      }
+      if (this.figure?.name === FigureNames.KING
+        && this.isRookAllowsCastling(board, target)) {
+        this.moveCastlingRook(board, target)
       }
       target.figure = this.figure
       this.figure = null

@@ -8,6 +8,9 @@ import whiteLogo from '@/assets/figures/rook-white.png'
 import { Board } from '@/models/Board'
 
 export class Rook extends Figure {
+
+  isFirstStep: boolean = true
+
   constructor(color: Colors, cell: Cell) {
     super(color)
     cell.addFigure(this)
@@ -21,5 +24,10 @@ export class Rook extends Figure {
     }
     return cell.isCellEmptyVertical(board, target)
       || cell.isCellEmptyHorizontal(board, target)
+  }
+
+  moveFigure(target: Cell) {
+    super.moveFigure(target)
+    this.isFirstStep = false
   }
 }
