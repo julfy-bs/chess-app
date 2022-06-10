@@ -56,7 +56,6 @@ export class Cell {
     const dy = this.y < target.y ? 1 : -1
     const dx = this.x < target.x ? 1 : -1
     for (let i = 1; i < absY; i++) {
-      console.log(dy, i, board.getCell(this.y + dy * i, this.x + dx * i))
       if (!board.getCell(this.y + dy * i, this.x + dx * i).isCellEmpty()) {
         return false
       }

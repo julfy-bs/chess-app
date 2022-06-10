@@ -20,6 +20,6 @@ export class Bishop extends Figure {
     if (!super.canMove(board, cell, target)) {
       return false
     }
-    return true
+    return cell.isCellEmptyDiagonal(board, target)
   }
 }
