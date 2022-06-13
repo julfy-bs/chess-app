@@ -11,9 +11,12 @@ import ChessCell from '@/components/ChessCell.vue'
 import { Board } from '@/models/Board'
 import { h, ref, watch } from 'vue'
 import { Cell } from '@/models/Cell'
+import { Player } from '@/models/Player'
 
 interface BoardProps {
   board: Board;
+  currentPlayer: Player | null;
+  changeTurn: () => void;
 }
 
 const props = defineProps<BoardProps>()
@@ -23,9 +26,16 @@ const selectCell = (cell: Cell) => {
   if (selectedCell.value && selectedCell.value !== cell
       && selectedCell.value.figure?.canMove(props.board, selectedCell.value, cell)) {
     selectedCell.value.moveFigure(props.board, cell)
+    props.changeTurn()
     selectedCell.value = null
   } else {
-    selectedCell.value = cell
+    if (cell.figure?.color === props.currentPlayer?.color) {
+      if (selectedCell.value?.x === cell.x && selectedCell.value?.y === cell.y) {
+        selectedCell.value = null
+      } else {
+        selectedCell.value = cell
+      }
+    }
   }
 }
 

@@ -5,9 +5,9 @@
     @click="selectCell(cell)"
   >
     <img
-      v-if="figure?.logo"
-      :src="figure?.logo"
-      :alt="figure.name"
+      v-if="cell.figure?.logo"
+      :src="cell.figure?.logo"
+      :alt="cell.figure.name"
       class="figure"
     >
     <div
@@ -22,15 +22,12 @@
 </template>
 
 <script setup lang="ts">
- import { Figure } from '@/models/figures/Figure'
  import { Cell } from '@/models/Cell'
 
  interface CellProps {
    selected: boolean;
    selectCell: (cell: Cell) => void;
    cell: Cell;
-   figure: Figure | null;
-   available: boolean;
  }
  const props = defineProps<CellProps>()
 </script>
