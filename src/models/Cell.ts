@@ -131,7 +131,10 @@ export class Cell {
         siblingCell.removeFigure()
       }
       if (this.figure?.name === FigureNames.KING
+        && (board.getCell(this.y, this.x - 2) === target
+        || board.getCell(this.y, this.x + 2) === target)
         && this.isRookAllowsCastling(board, target)) {
+        console.log(board.getCell(this.y, this.x + 1), this)
         this.moveCastlingRook(board, target)
       }
       target.figure = this.figure

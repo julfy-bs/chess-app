@@ -1,15 +1,25 @@
 <template>
   <div class="app__container">
-    <chess-board :board="board" />
+    <chess-board
+      :board="board"
+      :current-player="currentPlayer"
+      :change-turn="changeTurn"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import ChessBoard from '@/components/ChessBoard.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { Board } from '@/models/Board'
+import { Player } from '@/models/Player'
+import { Colors } from '@/models/Colors'
 
 const board = ref<Board>(new Board())
+const playerWhite = ref<Player>(new Player(Colors.WHITE))
+const playerBlack = ref<Player>(new Player(Colors.BLACK))
+const currentPlayer = ref<Player | null>(null)
+
 const restart = () => {
   const newBoard = new Board()
   newBoard.initCells()
@@ -17,7 +27,14 @@ const restart = () => {
   board.value = newBoard
 }
 
-restart()
+const changeTurn = () => {
+  currentPlayer.value = currentPlayer.value?.color === Colors.WHITE ? playerBlack.value : playerWhite.value
+}
+
+onMounted(() => {
+  restart()
+  currentPlayer.value = playerWhite.value
+})
 </script>
 
 <style lang="scss">
