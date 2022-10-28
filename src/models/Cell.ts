@@ -134,7 +134,6 @@ export class Cell {
         && (board.getCell(this.y, this.x - 2) === target
         || board.getCell(this.y, this.x + 2) === target)
         && this.isRookAllowsCastling(board, target)) {
-        console.log(board.getCell(this.y, this.x + 1), this)
         this.moveCastlingRook(board, target)
       }
       target.figure = this.figure
