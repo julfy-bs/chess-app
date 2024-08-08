@@ -58,7 +58,7 @@ npm run lint
 &copy; Автор - [Сутужко Богдан][author-portfolio]
 
 [//]: # 'Общие переменные автора'
-[author-portfolio]: https://julfy-bs.github.io/portfolio/
+[author-portfolio]: https://github.com/julfy-bs
 
 [//]: # 'Переменные используемых технологий'
 [html]: https://html5.org/
