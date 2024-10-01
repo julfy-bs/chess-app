@@ -1,4 +1,5 @@
 # Проект: Шахматы
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/278f21d3-0ce5-4e4d-a441-39f792756fa1">
 
 "Шахматы" - MVP приложение для игры вдохновленное приложением chess.com.
 
